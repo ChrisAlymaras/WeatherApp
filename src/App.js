@@ -1,40 +1,54 @@
+//import stylesheet
+import './app.css';
+
+//import useState
+import {useState} from "react";
+
 //import components
 import SearchBar from './components/SearchBar.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
 import Favourites from './components/Favourites';
 
-//import stylesheet
-import './app.css';
 
-//import main api call function
+//import main api call functions
 import { fetchWeatherByCity } from './api/WeatherApiCall.js';
-import {useState} from "react";
+import { fetchComingDaysWeather } from './api/ComingDaysApiCall.js';
 
 function App() {
     const [weatherData, setWeatherData] = useState(null);
     const [error, setError] = useState(null);
+    const [comingDays, setComingDays] = useState(null);
 
     //my own api key given when registered in OpenWeather platform
     const API_KEY = "7c9b9d17c9940e71bc65ca67749df317";
 
+    //search given city and store current weather and coming days weather
     async function handleSearch(city){
         try{
             setError(null);
-            const data = await fetchWeatherByCity(city,API_KEY);
-            setWeatherData(data);
-            console.log(data); // ola emfanizontai ok
+
+            const currentWeather = await fetchWeatherByCity(city,API_KEY);
+            setWeatherData(currentWeather);
+
+            const comingWeather = await fetchComingDaysWeather(city,API_KEY);
+            setComingDays(comingWeather);
+
+            console.log(weatherData); // ola emfanizontai ok
+            console.log(comingDays);
         }catch(error){
             console.log(error);
-            setError("City not found");
+            setError("Error fetching weather data");
             setWeatherData(null); //erwtisi edw
         }
     }
+
+
 
     return (
     <div className="wrapper">
         <h1>Weather App</h1>
         <SearchBar onSearch={handleSearch} />
-        <WeatherCard />
+        <WeatherCard data={weatherData} />
         <Favourites />
     </div>
   );

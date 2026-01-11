@@ -1,0 +1,48 @@
+.weather-card{
+    display: flex;
+    width:50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: 2px solid black;
+    padding: 20px;
+    transition: background 2s ease;
+}
+
+.more-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.sunny-bg{
+    background: linear-gradient(to bottom, #ff7b00, #ffaa00, #ffdd00);
+    color: white;
+}
+
+.cloudy-bg{
+    background: linear-gradient(to bottom, #adb5bd, #e9ecef);
+}
+
+.rainy-bg{
+    background: linear-gradient(to bottom, #212529, #495057, #ced4da);
+    color: #e7ecef;
+}
+
+.thunderstorm-bg{
+    background: linear-gradient(to bottom, #001d3d, #ffc300,#ffea00);
+    color: white;
+}
+
+.snowy-bg{
+    background: linear-gradient(to bottom, #90e0ef, #caf0f8);
+    color:#003049;
+}
+
+.night-bg{
+    background: linear-gradient(to bottom, #0d1b2a, #1b263b, #415a77);
+    color: white;
+}
+
+
