@@ -10,12 +10,13 @@ export async function fetchWeatherByCity(city,apiKey){
         const response = await fetch(`${BASE_URL}?q=${city}&apikey=${apiKey}&units=metric`);
         //check for errors
         if(!response.ok){
-            console.log(`${city} Not Found`);
+            alert(`${city} Not Found`);
+            return null;
         }
         //store data in json format and return
         const data = await response.json();
+        console.log(data);
         return data;
-
     }catch(e){
         console.log(e);
         throw e;

@@ -14,6 +14,9 @@ import Favourites from './components/Favourites';
 import { fetchWeatherByCity } from './api/WeatherApiCall.js';
 import { fetchComingDaysWeather } from './api/ComingDaysApiCall.js';
 
+//import function for filtering coming days weather
+import { getDailyDates } from './mutation_functions/GetForecastDates.js';
+
 function App() {
     const [weatherData, setWeatherData] = useState(null);
     const [error, setError] = useState(null);
@@ -26,30 +29,64 @@ function App() {
     async function handleSearch(city){
         try{
             setError(null);
-
+            //todays weather
             const currentWeather = await fetchWeatherByCity(city,API_KEY);
             setWeatherData(currentWeather);
-
+            //get upcoming days
             const comingWeather = await fetchComingDaysWeather(city,API_KEY);
-            setComingDays(comingWeather);
+            //filter comingWeather to every dates 12:00:00 info
+            const nextDays = getDailyDates(comingWeather.list);
+            setComingDays(nextDays);
 
-            console.log(weatherData); // ola emfanizontai ok
-            console.log(comingDays);
+            //console.log(weatherData); everything show correct in the console
+            console.log(nextDays);
         }catch(error){
             console.log(error);
             setError("Error fetching weather data");
-            setWeatherData(null); //erwtisi edw
+            setWeatherData(null);
+            setComingDays(null);
         }
     }
-
-
 
     return (
     <div className="wrapper">
         <h1>Weather App</h1>
         <SearchBar onSearch={handleSearch} />
-        <WeatherCard data={weatherData} />
-        <Favourites />
+        <div className="main-card">
+        {weatherData && (
+            <WeatherCard
+                country={`${weatherData.name} , ${weatherData.sys.country}`}
+                date={new Date(weatherData.dt*1000).toUTCString()}
+                icon={weatherData.weather[0].icon}
+                temp={weatherData.main.temp}
+                description={weatherData.weather[0].description}
+                humidity={weatherData.main.humidity}
+                windSpeed={weatherData.wind.speed}
+                dt={weatherData.dt}
+                sunset={weatherData.sys.sunset}
+                main={weatherData.weather[0].main}
+            />)
+        }
+        </div>
+        <div className="forecast-cards">
+            {comingDays &&( comingDays.map((day,index)=> (
+            <WeatherCard
+                key={index}
+                country={null}
+                date={day.dt_txt.split(" ")[0]}
+                icon={day.weather[0].icon}
+                temp={day.main.temp}
+                description={day.weather[0].description}
+                humidity={day.main.humidity}
+                windSpeed={day.wind.speed}
+                dt={day.dt}
+                sunset={null}
+                main={day.weather[0].main}
+            />
+            ))
+            )
+        }
+        </div>
     </div>
   );
 }

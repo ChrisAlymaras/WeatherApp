@@ -4,7 +4,10 @@ export async function fetchComingDaysWeather(city,apiKey){
     try{
         const response = await fetch(`${BASE_URL}?q=${city}&appid=${apiKey}&units=metric`);
         //check response
-        if(!response.ok){console.log(`Couldn't load forecast for ${city}`)}
+        if(!response.ok){
+            console.log(`Couldn't load forecast for ${city}. Please enter a valid name`);
+            return null;
+        }
         //store in json and return
         const data = await response.json();
         console.log(data);

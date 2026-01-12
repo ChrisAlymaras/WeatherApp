@@ -1,14 +1,16 @@
 //OpenWeather describes the weather with one word in weather[0].main
 
-export function getBackground(weather){
-    if (!weather){return "default-bg"}
-
-    //check for night condition
-    const night = weather.dt > weather.sys.sunset;
-    if (night) {return "night-bg"}
+export function getBackground(dt,sunset,main){
+    //check for night condition only for todays date
+    if (dt && sunset){
+        const night = dt > sunset;
+        if (night) {return "night-bg"}
+    }
+    //define background based on description
+    if (!main){return "default-bg"}
 
     //for every main we will return a respective className
-    const condition = weather.weather[0].main.toLowerCase();
+    const condition = main.toLowerCase();
     switch(condition){
         case "clear":
             return "sunny-bg";
