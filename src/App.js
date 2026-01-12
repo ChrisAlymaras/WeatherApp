@@ -7,7 +7,6 @@ import {useState} from "react";
 //import components
 import SearchBar from './components/SearchBar.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
-import Favourites from './components/Favourites';
 
 
 //import main api call functions
@@ -19,7 +18,6 @@ import { getDailyDates } from './mutation_functions/GetForecastDates.js';
 
 function App() {
     const [weatherData, setWeatherData] = useState(null);
-    const [error, setError] = useState(null);
     const [comingDays, setComingDays] = useState(null);
 
     //my own api key given when registered in OpenWeather platform
@@ -28,7 +26,6 @@ function App() {
     //search given city and store current weather and coming days weather
     async function handleSearch(city){
         try{
-            setError(null);
             //todays weather
             const currentWeather = await fetchWeatherByCity(city,API_KEY);
             setWeatherData(currentWeather);
@@ -42,7 +39,6 @@ function App() {
             console.log(nextDays);
         }catch(error){
             console.log(error);
-            setError("Error fetching weather data");
             setWeatherData(null);
             setComingDays(null);
         }
