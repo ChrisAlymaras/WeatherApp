@@ -3,11 +3,9 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-
     width: 90%;
     max-width: 400px;
-
-    margin: 20px;
+    margin: 15px;
     padding: 12px 16px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -15,23 +13,20 @@
 
 .search-bar input {
     flex: 1;
-    padding: 10px 14px;
-
+    padding: 10px 8px;
     border: none;
     outline: none;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .search-bar button {
     padding: 10px 18px;
-
     border: none;
     border-radius: 8px;
-
     background: #4a90e2;
     color: white;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     transition: background 0.2s ease;
 }

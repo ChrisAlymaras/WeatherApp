@@ -5,3 +5,22 @@
         align-items: center;
         flex-direction: column;
 }
+
+.forecast-container{
+    width: 100%;
+    max-width: 620px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
+.forecast-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.forecast-container::-webkit-scrollbar-thumb {
+    background: #4a90e2;
+    border-radius: 3px;
+}
+
+

@@ -1,19 +1,21 @@
 import './WeatherCard.css';
 import { getBackground } from '../global/Backgrounds.js';
+import { FavouritesContext } from '../context/FavouritesContext.jsx';
+import {useContext} from "react";
 
-export default function WeatherCard({ country,date,icon,temp,description,humidity,windSpeed,dt,sunset,main }){
+
+export default function WeatherCard({ className,country,date,icon,temp,description,humidity,windSpeed,dt,sunset,main,favouriteButton }){
+    const { addFavourite } = useContext(FavouritesContext);
     //define background
     const bgClass = getBackground(dt,sunset,main);
     console.log(bgClass);
-
     //define weather icon
     const iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
-    //const date = new Date(data.dt*1000).toUTCString();
-
     return (
-        <div className={`weather-card ${bgClass}`}>
-            <h1>{country}</h1>
+        <div className={`weather-card ${className} ${bgClass}`}>
+            {country && <h1>{country}</h1>}
+            {favouriteButton && (<button onClick={() => addFavourite(country)}>Add to Favorites</button>)}
             <h3>{date.split("-").reverse().join(" / ")}</h3>
             <img src={iconURL} alt={description}/>
             <h3>{temp} °C</h3>

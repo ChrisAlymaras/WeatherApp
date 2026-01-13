@@ -7,7 +7,7 @@ import {useState} from "react";
 //import components
 import SearchBar from './components/SearchBar.jsx';
 import WeatherCard from './components/WeatherCard.jsx';
-
+import Favourites from './components/Favourites.jsx';
 
 //import main api call functions
 import { fetchWeatherByCity } from './api/WeatherApiCall.js';
@@ -48,9 +48,9 @@ function App() {
     <div className="wrapper">
         <h1>Weather App</h1>
         <SearchBar onSearch={handleSearch} />
-        <div className="main-card">
         {weatherData && (
             <WeatherCard
+                className="main-card"
                 country={`${weatherData.name} , ${weatherData.sys.country}`}
                 date={new Date(weatherData.dt*1000).toUTCString()}
                 icon={weatherData.weather[0].icon}
@@ -61,12 +61,13 @@ function App() {
                 dt={weatherData.dt}
                 sunset={weatherData.sys.sunset}
                 main={weatherData.weather[0].main}
+                favouriteButton={true}
             />)
         }
-        </div>
-        <div className="forecast-cards">
-            {comingDays &&( comingDays.map((day,index)=> (
+        <div className="forecast-container">
+        {comingDays &&( comingDays.map((day,index)=> (
             <WeatherCard
+                className="forecast-card"
                 key={index}
                 country={null}
                 date={day.dt_txt.split(" ")[0]}
@@ -78,11 +79,13 @@ function App() {
                 dt={day.dt}
                 sunset={null}
                 main={day.weather[0].main}
+                favouriteButton={false}
             />
             ))
             )
         }
         </div>
+        <Favourites onSelect={handleSearch} />
     </div>
   );
 }
