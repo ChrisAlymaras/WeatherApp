@@ -4,10 +4,7 @@ import './Favourites.css';
 
 export default function Favourites({ onSelect }){
     const {favourites, removeFavourite} = useContext(FavouritesContext);
-
-
     if (favourites.length === 0){return <p>No favourties yet</p>}
-
     return (
             <div className="favourites-container">
             <h3>Favourites</h3>

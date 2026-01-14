@@ -8,7 +8,7 @@ export default function WeatherCard({ className,country,date,icon,temp,descripti
     const { addFavourite } = useContext(FavouritesContext);
     //define background
     const bgClass = getBackground(dt,sunset,main);
-    console.log(bgClass);
+    //console.log(bgClass);
     //define weather icon
     const iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 
